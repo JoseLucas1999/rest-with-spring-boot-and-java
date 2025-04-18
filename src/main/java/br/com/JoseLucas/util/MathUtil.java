@@ -1,12 +1,12 @@
 package br.com.JoseLucas.util;
 
-import br.com.JoseLucas.exeption.UnsupportedMathOperationException;
+import br.com.JoseLucas.exeption.ResourceNotFoundException;
 
 public class MathUtil {
 	
 	public static  double convertToDouble(String strNumber) throws IllegalArgumentException{
 		if (strNumber == null || strNumber.isEmpty())
-			throw new UnsupportedMathOperationException("please, set an numeric value!");;
+			throw new ResourceNotFoundException("please, set an numeric value!");;
 		String number = strNumber.replace(",", ".");
 		return Double.parseDouble(number);
 		//return 1D;

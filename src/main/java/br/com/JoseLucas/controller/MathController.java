@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import br.com.JoseLucas.exeption.UnsupportedMathOperationException;
 import br.com.JoseLucas.service.MathService;
-import br.com.JoseLucas.util.MathUtil;
 
 @RestController
 @RequestMapping("/math")
