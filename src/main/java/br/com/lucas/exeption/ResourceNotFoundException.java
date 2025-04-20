@@ -1,4 +1,4 @@
-package br.com.JoseLucas.exeption;
+package br.com.lucas.exeption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

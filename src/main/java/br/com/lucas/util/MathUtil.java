@@ -1,6 +1,6 @@
-package br.com.JoseLucas.util;
+package br.com.lucas.util;
 
-import br.com.JoseLucas.exeption.ResourceNotFoundException;
+import br.com.lucas.exeption.ResourceNotFoundException;
 
 public class MathUtil {
 	

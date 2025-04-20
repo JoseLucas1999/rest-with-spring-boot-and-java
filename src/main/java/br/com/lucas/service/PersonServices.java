@@ -1,22 +1,23 @@
-package br.com.JoseLucas.service;
+package br.com.lucas.service;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.JoseLucas.exeption.ResourceNotFoundException;
-import br.com.JoseLucas.model.Person;
-import br.com.JoseLucas.repository.PersonRepository;
+import br.com.lucas.exeption.ResourceNotFoundException;
+import br.com.lucas.model.Person;
+import br.com.lucas.repository.PersonRepository;
 
 @Service
 public class PersonServices {
 
     private final AtomicLong counter = new AtomicLong();
-    private Logger logger = Logger.getLogger(PersonServices.class.getName());
-
+    private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName());
+    
     @Autowired
     PersonRepository repository;
 
@@ -54,11 +55,13 @@ public class PersonServices {
     }
 
     public void delete(Long id) {
-
         logger.info("Deleting one Person!");
-
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
     }
+
+	public AtomicLong getCounter() {
+		return counter;
+	}
 }

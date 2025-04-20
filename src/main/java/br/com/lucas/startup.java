@@ -1,4 +1,4 @@
-package br.com.JoseLucas;
+package br.com.lucas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,3 +10,11 @@ public class startup {
 		SpringApplication.run(startup.class, args);
 	}
 }
+
+/*
+kill task:
+
+netstat -aon | findstr :8080
+taskkill /PID 1234 /F
+
+*/

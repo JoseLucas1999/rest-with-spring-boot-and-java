@@ -1,4 +1,4 @@
-package br.com.JoseLucas.controller;
+package br.com.lucas.controller;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.JoseLucas.model.Greeting;
+import br.com.lucas.model.Greeting;
 
 @RestController
 public class GreetingController {

@@ -1,4 +1,4 @@
-package br.com.JoseLucas.exeption;
+package br.com.lucas.exeption;
 
 import java.util.Date;
 

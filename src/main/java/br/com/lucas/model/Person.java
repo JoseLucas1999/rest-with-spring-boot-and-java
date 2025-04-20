@@ -1,4 +1,4 @@
-package br.com.JoseLucas.model;
+package br.com.lucas.model;
 
 import java.io.Serializable;
 
@@ -12,7 +12,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "person")
 public class Person  implements Serializable{
-	private static final long seriaLVersionUID = 1L;
+
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,9 +1,9 @@
-package br.com.JoseLucas.service;
+package br.com.lucas.service;
 
 import org.springframework.stereotype.Service;
 
-import br.com.JoseLucas.exeption.ResourceNotFoundException;
-import br.com.JoseLucas.util.MathUtil;
+import br.com.lucas.exeption.ResourceNotFoundException;
+import br.com.lucas.util.MathUtil;
 
 @Service
 public class MathService {
