@@ -2,7 +2,8 @@ package br.com.lucas.unitetests.mapper.mocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import br.com.lucas.data.dto.PersonDTO;
+
+import br.com.lucas.data.dto.v1.PersonDTO;
 import br.com.lucas.model.Person;
 
 public class MockPerson {

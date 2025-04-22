@@ -1,5 +1,8 @@
 package br.com.lucas.service;
 
+import static br.com.lucas.mapper.ObjectMapper.parseListObjects;
+import static br.com.lucas.mapper.ObjectMapper.parseObject;
+
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -8,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.lucas.data.dto.PersonDTO;
+import br.com.lucas.data.dto.v1.PersonDTO;
+import br.com.lucas.data.dto.v2.PersonDTOV2;
 import br.com.lucas.exeption.ResourceNotFoundException;
-import static br.com.lucas.mapper.ObjectMapper.parseListObjects;
-import static br.com.lucas.mapper.ObjectMapper.parseObject;
+import br.com.lucas.mapper.custom.PersonMapper;
 import br.com.lucas.model.Person;
 import br.com.lucas.repository.PersonRepository;
 
@@ -23,6 +26,8 @@ public class PersonServices {
     
     @Autowired
     PersonRepository repository;
+    @Autowired
+    PersonMapper converter;
 
     //find all person 
     public List<PersonDTO> findAll() {
@@ -46,6 +51,13 @@ public class PersonServices {
      // Converte o DTO para a entidade
         var entity = parseObject(person, Person.class);
         return parseObject(repository.save(entity), PersonDTO.class);
+    }
+    
+    public PersonDTOV2 createV2(PersonDTOV2 person) {
+    	logger.info("Creating one Person V2!");
+    	// Converte o DTO para a entidade
+    	var entity = converter.convertDTOtoEntity(person);
+    	return converter.convertEntityToDTO(repository.save(entity));
     }
 
     //update a person

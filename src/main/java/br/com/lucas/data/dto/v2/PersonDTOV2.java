@@ -1,19 +1,21 @@
-package br.com.lucas.data.dto;
+package br.com.lucas.data.dto.v2;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-public class PersonDTO  implements Serializable{
+public class PersonDTOV2  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
 	private String firstName;
 	private String lastName;
+	private Date birthDay;
 	private String address;
 	private String gender;
 	
-	public PersonDTO() {super();}
+	public PersonDTOV2() {super();}
 
 	public Long getId() { return id;}
 	public void setId(Long id) { this.id = id;}
@@ -29,10 +31,13 @@ public class PersonDTO  implements Serializable{
 
 	public String getGender() {return gender;}
 	public void setGender(String gender) {this.gender = gender;}
+	
+	public Date getBirthDay() {return birthDay;}
+	public void setBirthDay(Date birthDay) {this.birthDay = birthDay;}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, firstName, gender, id, lastName);
+		return Objects.hash(address, birthDay, firstName, gender, id, lastName);
 	}
 
 	@Override
@@ -43,12 +48,12 @@ public class PersonDTO  implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonDTO other = (PersonDTO) obj;
-		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName);
+		PersonDTOV2 other = (PersonDTOV2) obj;
+		return Objects.equals(address, other.address) && Objects.equals(birthDay, other.birthDay)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
+				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
 	}
-	
+
 	
 
 }

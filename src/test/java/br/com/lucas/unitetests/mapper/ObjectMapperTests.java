@@ -3,10 +3,12 @@ import static br.com.lucas.mapper.ObjectMapper.parseListObjects;
 import static br.com.lucas.mapper.ObjectMapper.parseObject;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
-import br.com.lucas.data.dto.PersonDTO;
+
 import br.com.lucas.unitetests.mapper.mocks.MockPerson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import br.com.lucas.data.dto.v1.PersonDTO;
 import br.com.lucas.model.Person;
 
 public class ObjectMapperTests {

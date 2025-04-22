@@ -1,6 +1,7 @@
 package br.com.lucas.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.lucas.data.dto.PersonDTO;
+
+import br.com.lucas.data.dto.v1.PersonDTO;
+import br.com.lucas.data.dto.v2.PersonDTOV2;
 import br.com.lucas.service.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 
     @Autowired
@@ -42,6 +45,15 @@ public class PersonController {
     )
     public PersonDTO create(@RequestBody PersonDTO person) {
         return service.create(person);
+    }
+    
+//    versão personDTOV2
+    @PostMapping(value = "/v2",
+    		consumes = MediaType.APPLICATION_JSON_VALUE,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+    		)
+    public PersonDTOV2 createv2(@RequestBody PersonDTOV2 person) {
+    	return service.createV2(person);
     }
 
     @PutMapping(
