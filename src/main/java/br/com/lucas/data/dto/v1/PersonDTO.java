@@ -1,25 +1,42 @@
 package br.com.lucas.data.dto.v1;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-@JsonPropertyOrder({"id","first_name","last_name","gender","address"})
+import br.com.lucas.serializer.GenderSerializer;
+
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+//@JsonPropertyOrder({"id","first_name","last_name","gender","address"})
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)
+//@JsonFilter("PersonFilter")
 public class PersonDTO  implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	@JsonProperty("first_name")
+//	@JsonProperty("first_name")
 	private String firstName;
-	@JsonProperty("last_name")
+//	@JsonProperty("last_name")
+//	@JsonInclude(JsonInclude.Include.NON_NULL)
 	private String lastName;
+//	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+//	private String PhoneNumber;
+//	@JsonFormat(pattern = "dd/MM/yyyy")
+//	private Date birthDay;
 	private String address;
-	@JsonIgnore
+//	@JsonIgnore
+//	@JsonSerialize(using = GenderSerializer.class)
 	private String gender;
+//	private String sensitiveData;
 	
 	public PersonDTO() {super();}
 
@@ -56,7 +73,13 @@ public class PersonDTO  implements Serializable{
 				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
 				&& Objects.equals(lastName, other.lastName);
 	}
-	
+
+//	public Date getBirthDay() {return birthDay;}
+//	public void setBirthDay(Date birthDay) {this.birthDay = birthDay;}
+//
+//	public String getPhoneNumber() {return PhoneNumber;}
+//	public void setPhoneNumber(String phoneNumber) {PhoneNumber = phoneNumber;}
+
 	
 
 }

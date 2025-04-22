@@ -1,5 +1,6 @@
 package br.com.lucas.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,23 @@ public class PersonController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
-    }
-    //http://localhost:8080/person/1
+    }//http://localhost:8080/api/person/v1
+
+    /*
+//    apenas para simular JsonPatter
+//    fazemos essa gambiara pois não temos o campo birthDay e setPhoneNumber no banco
+//    esse é método é para realizar alguns testes
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTO findById(@PathVariable("id") Long id) {
+    	var person =  service.findById(id);
+    	person.setBirthDay(new Date());
+    	person.setPhoneNumber(""); //não será redenrizado pois é empty
+//    	person.setPhoneNumber("+55(16)99798-6230");
+    	person.setLastName(null); //não será redenrizado pois é null
+    	person.setSensitiveData("Foo Bar");
+    	return person;
+    }*/
+    
 
     @PostMapping(
         consumes = MediaType.APPLICATION_JSON_VALUE,
