@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import br.com.lucas.controller.PersonController;
 import br.com.lucas.data.dto.v1.PersonDTO;
 import br.com.lucas.data.dto.v2.PersonDTOV2;
+import br.com.lucas.exeption.RequiredObjectIsNullException;
 import br.com.lucas.exeption.ResourceNotFoundException;
 import br.com.lucas.mapper.custom.PersonMapper;
 import br.com.lucas.model.Person;
@@ -61,6 +62,10 @@ public class PersonServices {
 
 	//create a person
     public PersonDTO create(PersonDTO person) {
+//    	validar se person é null
+//    	se for null lança uma exceção customizada RequiredObjectIsNullException
+    	if(person == null) throw new RequiredObjectIsNullException();
+    	
         logger.info("Creating one Person!");
      // Converte o DTO para a entidade
         var entity = parseObject(person, Person.class);
@@ -78,6 +83,10 @@ public class PersonServices {
 
     //update a person
     public PersonDTO update(PersonDTO person) {
+//    	validar se person é null
+//    	se for null lança uma exceção customizada RequiredObjectIsNullException
+    	if(person == null) throw new RequiredObjectIsNullException();
+    	
         logger.info("Updating one Person!");
         Person entity = repository.findById(person.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));

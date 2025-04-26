@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.lucas.exeption.ExceptionResponse;
+import br.com.lucas.exeption.RequiredObjectIsNullException;
 import br.com.lucas.exeption.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -33,7 +34,15 @@ public class CustomEntityResponseHandler extends ResponseEntityExceptionHandler{
 		
 		return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 	}
-	
+
+	@ExceptionHandler(RequiredObjectIsNullException.class)
+	public final ResponseEntity<ExceptionResponse> handleBadRequestExceptions(Exception ex, WebRequest request){
+		ExceptionResponse response = new ExceptionResponse(
+				new Date(), ex.getMessage(), request.getDescription(false)
+				);
+		
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
 }
 
 /*Esse código é um handler global de exceções em uma aplicação Spring Boot. 
