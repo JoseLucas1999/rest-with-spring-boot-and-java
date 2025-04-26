@@ -2,6 +2,8 @@ package br.com.lucas.service;
 
 import static br.com.lucas.mapper.ObjectMapper.parseListObjects;
 import static br.com.lucas.mapper.ObjectMapper.parseObject;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.lucas.controller.PersonController;
 import br.com.lucas.data.dto.v1.PersonDTO;
 import br.com.lucas.data.dto.v2.PersonDTOV2;
 import br.com.lucas.exeption.ResourceNotFoundException;
@@ -34,23 +37,37 @@ public class PersonServices {
         logger.info("Finding all People!");
 //        return repository.findAll();
 //        return ObjectMapper.parseListObjects(repository.findAll(), PersonDTO.class);
-        return parseListObjects(repository.findAll(), PersonDTO.class);
+        var people =  parseListObjects(repository.findAll(), PersonDTO.class);
+//      people.forEach(p -> addHateoasLinks(p));
+        people.forEach(this::addHateoasLinks);
+        return people;
     }
 
   //found person by id
-    public PersonDTO findById(Long id) {
+   /* public PersonDTO findById(Long id) {
         logger.info("Finding one Person!");
         var entity = repository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         return parseObject(entity, PersonDTO.class);
+    }*/
+
+    public PersonDTO findById(Long id) {
+        logger.info("Finding one Person!");
+        var entity = repository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+        var dto =  parseObject(entity, PersonDTO.class); //a entidade Person é convertida para um objeto PersonDTO.
+        addHateoasLinks(dto); //método para fornecer links
+        return dto;
     }
 
-  //create a person
+	//create a person
     public PersonDTO create(PersonDTO person) {
         logger.info("Creating one Person!");
      // Converte o DTO para a entidade
         var entity = parseObject(person, Person.class);
-        return parseObject(repository.save(entity), PersonDTO.class);
+        var dto = parseObject(repository.save(entity), PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
     
     public PersonDTOV2 createV2(PersonDTOV2 person) {
@@ -71,7 +88,9 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return parseObject(repository.save(entity), PersonDTO.class);
+        var dto =  parseObject(repository.save(entity), PersonDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
     public void delete(Long id) {
@@ -81,7 +100,38 @@ public class PersonServices {
         repository.delete(entity);
     }
 
-	public AtomicLong getCounter() {
-		return counter;
-	}
+	private void addHateoasLinks(PersonDTO dto) {
+    	dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
+    	dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
+    	dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+    	dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+    	dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
+    }
+
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,24 +1,20 @@
 package br.com.lucas.data.dto.v1;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import br.com.lucas.serializer.GenderSerializer;
-
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.fasterxml.jackson.annotation.JsonProperty;
 //import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
 //@JsonPropertyOrder({"id","first_name","last_name","gender","address"})
 //@JsonInclude(JsonInclude.Include.NON_EMPTY)
 //@JsonFilter("PersonFilter")
-public class PersonDTO  implements Serializable{
+@JacksonXmlRootElement(localName = "Person")
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

@@ -22,5 +22,5 @@ spring:
 logging:
   level:
       #org.flywaydb: DEBUG
-      root: WARN
-      #br.com.lucas: DEBUG
+      #root: WARN
+      br.com.lucas.config.WebConfig: DEBUG
