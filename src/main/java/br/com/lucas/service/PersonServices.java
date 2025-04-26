@@ -6,7 +6,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +22,8 @@ import br.com.lucas.repository.PersonRepository;
 
 @Service
 public class PersonServices {
-
-    private final AtomicLong counter = new AtomicLong();
+	
+//    private final AtomicLong counter = new AtomicLong();
     private Logger logger = LoggerFactory.getLogger(PersonServices.class.getName());
     
     @Autowired
@@ -107,6 +106,15 @@ public class PersonServices {
     	dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
     	dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
     }
+
+//	É como se fosse um contador de números longos, 
+//	mas preparado para ser usado em sistemas que têm muitas threads 
+//	trabalhando ao mesmo tempo, sem precisar usar synchronized ou trancar 
+//	manualmente o acesso.
+	
+//	public AtomicLong getCounter() {
+//		return counter;
+//	}
 
 	
 }
