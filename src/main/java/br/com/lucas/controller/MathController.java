@@ -15,6 +15,7 @@ public class MathController {
 	@Autowired
 	private MathService service;
 	
+	
 	//toda aógica está sendo implementada pelo MathService
 	@GetMapping("/sum/{number1}/{number2}") //http://localhost:8080/math/sum/3/5
 	public Double sum(

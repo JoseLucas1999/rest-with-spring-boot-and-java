@@ -23,4 +23,9 @@ logging:
   level:
       #org.flywaydb: DEBUG
       #root: WARN
-      br.com.lucas: DEBUG
+      root: INFO
+      #br.com.lucas: DEBUG
+spring-doc:
+  paths-to-match: /api/**/v1/**
+  swagger-ui:
+    use-root-path: true

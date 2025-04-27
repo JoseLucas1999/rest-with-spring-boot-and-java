@@ -11,6 +11,8 @@ public class startup {
 	}
 }
 
+
+
 /*
 kill task:
 
@@ -20,6 +22,7 @@ taskkill /PID 1234 /F
 */
 
 /*
+comentar um bloco de texto : Shift + Ctrl + /
 
 copiar linha: ctrl + alt + down arrow
 

@@ -1,6 +1,7 @@
 package br.com.lucas.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,21 +13,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.lucas.data.dto.v1.PersonDTO;
 import br.com.lucas.data.dto.v2.PersonDTOV2;
 import br.com.lucas.service.PersonServices;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/person/v1") //http://localhost:8080/api/person/v1
-public class PersonController {
+@Tag(name = "People", description = "Endpoints for managing People")
+public class PersonController implements PersonControllerDocs {
 
     @Autowired
     private PersonServices service;
     // private PersonServices service = new PersonServices();
 
-    //retorna uma lista com todos os dados
-//    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @GetMapping(
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+	//FIND ALL
+    
+    @Override //esse overide é da interface de docs do swagger
+	@GetMapping(
     		produces = {MediaType.APPLICATION_JSON_VALUE, 
     					MediaType.APPLICATION_XML_VALUE,
     					MediaType.APPLICATION_YAML_VALUE
@@ -35,8 +41,11 @@ public class PersonController {
         return service.findAll();
     }
 
-    //retorna um person buscado pelo parametro id (passado pela URL)
-    @GetMapping(value = "/{id}", 
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+   //FIND BY ID
+    
+    @Override
+	@GetMapping(value = "/{id}", 
     		produces = {MediaType.APPLICATION_JSON_VALUE, 
     					MediaType.APPLICATION_XML_VALUE,
     					MediaType.APPLICATION_YAML_VALUE
@@ -44,7 +53,7 @@ public class PersonController {
     public PersonDTO findById(@PathVariable("id") Long id) {
         return service.findById(id);
     }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
     /*
 //    apenas para simular JsonPatter
 //    fazemos essa gambiara pois não temos o campo birthDay e setPhoneNumber no banco
@@ -59,8 +68,11 @@ public class PersonController {
     	person.setSensitiveData("Foo Bar");
     	return person;
     }*/
-
-    @PostMapping(
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+    // CREATE
+    
+    @Override
+	@PostMapping(
         consumes = {MediaType.APPLICATION_JSON_VALUE, 
         			MediaType.APPLICATION_XML_VALUE,
         			MediaType.APPLICATION_YAML_VALUE
@@ -72,22 +84,29 @@ public class PersonController {
     public PersonDTO create(@RequestBody PersonDTO person) {
         return service.create(person);
     }
-    
-//    versão personDTOV2
-    @PostMapping(value = "/v2",
-        consumes = {MediaType.APPLICATION_JSON_VALUE, 
-        			MediaType.APPLICATION_XML_VALUE,
-        			MediaType.APPLICATION_YAML_VALUE
-        		},
-        produces = {MediaType.APPLICATION_JSON_VALUE, 
-        			MediaType.APPLICATION_XML_VALUE,
-        			MediaType.APPLICATION_YAML_VALUE}
-    		)
-    public PersonDTOV2 createv2(@RequestBody PersonDTOV2 person) {
-    	return service.createV2(person);
-    }
 
-    @PutMapping(
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+    // CREATE V2
+    
+//  versão personDTOV2
+  @PostMapping(value = "/v2",
+      consumes = {MediaType.APPLICATION_JSON_VALUE, 
+      			MediaType.APPLICATION_XML_VALUE,
+      			MediaType.APPLICATION_YAML_VALUE
+      		},
+      produces = {MediaType.APPLICATION_JSON_VALUE, 
+      			MediaType.APPLICATION_XML_VALUE,
+      			MediaType.APPLICATION_YAML_VALUE}
+  		)
+  public PersonDTOV2 createv2(@RequestBody PersonDTOV2 person) {
+  	return service.createV2(person);
+  }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+  //UPDATE  
+  
+  @Override
+	@PutMapping(
         consumes = {MediaType.APPLICATION_JSON_VALUE, 
         			MediaType.APPLICATION_XML_VALUE,
         			MediaType.APPLICATION_YAML_VALUE
@@ -100,9 +119,15 @@ public class PersonController {
         return service.update(person);
     }
 
-    @DeleteMapping(value = "/{id}")
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+    //DELETE
+  
+@Override
+@DeleteMapping(value = "/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
 }
