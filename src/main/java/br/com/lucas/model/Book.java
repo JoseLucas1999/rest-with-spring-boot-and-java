@@ -1,6 +1,7 @@
 package br.com.lucas.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -9,9 +10,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "Books")
+@Table(name = "books")
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,16 +23,17 @@ public class Book implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(nullable = false, length = 80)
+	@Column(nullable = false, length = 180)
 	private String author;
 
-	@Column(nullable = false, length = 10)
-	private String launchDate;
+	@Column( name = "launch_date", nullable = false)
+	@Temporal(TemporalType.DATE) //indica que é um date
+	private Date launchDate;
 
-	@Column(nullable = false, length = 3)
-	private String price;
+	@Column(nullable = false)
+	private Double price;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 250)
 	private String title;
 
 	public Book() {
@@ -44,13 +48,17 @@ public class Book implements Serializable {
 
 	public void setAuthor(String author) {this.author = author;}
 
-	public String getLaunchDate() {return launchDate;}
+	public Date getLaunchDate() {return launchDate;}
 
-	public void setLaunchDate(String launchDate) {this.launchDate = launchDate;}
+	public void setLaunchDate(Date launchDate) {this.launchDate = launchDate;}
 
-	public String getPrice() {return price;}
+	public Double getPrice() {
+		return price;
+	}
 
-	public void setPrice(String price) {this.price = price;}
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
 	public String getTitle() {return title;}
 

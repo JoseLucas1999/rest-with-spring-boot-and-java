@@ -31,7 +31,7 @@ public class PersonServices {
     PersonRepository repository;
     @Autowired
     PersonMapper converter;
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
     //find all person 
     public List<PersonDTO> findAll() {
         logger.info("Finding all People!");
@@ -42,7 +42,7 @@ public class PersonServices {
         people.forEach(this::addHateoasLinks);
         return people;
     }
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
   //found person by id
    /* public PersonDTO findById(Long id) {
         logger.info("Finding one Person!");
@@ -50,7 +50,7 @@ public class PersonServices {
             .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         return parseObject(entity, PersonDTO.class);
     }*/
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
     public PersonDTO findById(Long id) {
         logger.info("Finding one Person!");
         var entity = repository.findById(id)
@@ -59,7 +59,7 @@ public class PersonServices {
         addHateoasLinks(dto); //método para fornecer links
         return dto;
     }
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
 	//create a person
     public PersonDTO create(PersonDTO person) {
 //    	validar se person é null
@@ -73,14 +73,15 @@ public class PersonServices {
         addHateoasLinks(dto);
         return dto;
     }
-    
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
     public PersonDTOV2 createV2(PersonDTOV2 person) {
     	logger.info("Creating one Person V2!");
     	// Converte o DTO para a entidade
     	var entity = converter.convertDTOtoEntity(person);
     	return converter.convertEntityToDTO(repository.save(entity));
     }
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
     //update a person
     public PersonDTO update(PersonDTO person) {
 //    	validar se person é null
@@ -100,14 +101,15 @@ public class PersonServices {
         addHateoasLinks(dto);
         return dto;
     }
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
     public void delete(Long id) {
         logger.info("Deleting one Person!");
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         repository.delete(entity);
     }
-
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------
+//    Links
 	private void addHateoasLinks(PersonDTO dto) {
     	dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
     	dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));

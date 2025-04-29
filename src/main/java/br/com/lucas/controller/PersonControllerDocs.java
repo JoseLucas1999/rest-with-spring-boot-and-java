@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 public interface PersonControllerDocs {
+//	DOCUMENTAÇÃO
 //nessa class teremos as informações de documentação do swagger
 	
 //----------------------------------------------------------------------------------------------------------------------------------------------------------	

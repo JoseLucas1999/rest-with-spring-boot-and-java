@@ -10,9 +10,6 @@ public class startup {
 		SpringApplication.run(startup.class, args);
 	}
 }
-
-
-
 /*
 kill task:
 
